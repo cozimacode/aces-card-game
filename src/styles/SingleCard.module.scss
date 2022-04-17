@@ -1,0 +1,223 @@
+@use "sass:map";
+
+.main {
+  width: 103px;
+  height: 141px;
+  font-family: 'Courier Prime', monospace;
+  font-weight: 700;
+  background: #fff;
+  border-radius: 10px;
+  padding: 17px 14px;
+  margin: 10px;
+  position: relative;
+  --angle-0: 15deg;
+  --x-axis-0: -12px;
+  --y-axis-0: -38px;
+  --angle-1: 7.5deg;
+  --x-axis-1: -6px;
+  --y-axis-1: -10px;
+  --angle-2: 0deg;
+  --x-axis-2: 0px;
+  --y-axis-2: 0px;
+  --angle-3: -7.5deg;
+  --x-axis-3: 6px;
+  --y-axis-3: -10px;
+  --angle-4: -15deg;
+  --x-axis-4: 12px;
+  --y-axis-4: -38px;
+
+  p {
+    margin: 0;
+    font-size: 36px;
+    line-height: 36px;
+    letter-spacing: -5px;
+  }
+
+  svg:first-of-type {
+    display: inline;
+    width: 25px;
+    height: 25px;
+  }
+
+  svg:last-child {
+    display: inline;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  &.clubs,
+  &.spades {
+    color: black;
+  }
+
+  &.diamonds,
+  &.hearts {
+    color: #f64242;
+  }
+
+  &.card-0 {
+    animation: animCardZero 0.7s 0.1s both;
+  }
+
+  &.card-1 {
+    animation: animCardOne 0.7s 0.2s both;
+  }
+
+  &.card-2 {
+    animation: animCardTwo 0.7s 0.3s both;
+  }
+
+  &.card-3 {
+    animation: animCardThree 0.7s 0.4s both;
+  }
+
+  &.card-4 {
+    animation: animCardFour 0.7s 0.5s both;
+  }
+}
+
+/* Keyframes mixin below inspired by the 'bounceInDown' animation from the library at https://animate.style/. 
+
+I made some modifications to get it to support my use case as both the animation and my css used the 'transform' property to modify the card. 
+
+Earlier I used the independent transform and rotate properties but that unfortunately had very little browser support (only firefox as of now).
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/rotate
+https://developer.mozilla.org/en-US/docs/Web/CSS/translate */
+
+@mixin keyframes($name, $angle, $xAxis, $yAxis) {
+  @keyframes #{$name} {
+    0%,
+    44%,
+    52%,
+    60%,
+    68%,
+    76%,
+    84%,
+    92%,
+    100% {
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    0% {
+      opacity: 0;
+      transform: rotate(#{$angle}) translate3d(#{$xAxis}, -3000px, 0);
+    }
+
+    44% {
+      opacity: 1;
+      transform: rotate(#{$angle}) translate3d(#{$xAxis}, 25px, 0);
+    }
+
+    52% {
+      opacity: 1;
+      transform: rotate(#{$angle}) translate3d(#{$xAxis}, 10px, 0);
+    }
+
+    60% {
+      opacity: 1;
+      transform: rotate(#{$angle}) translate3d(#{$xAxis}, 0, 0);
+    }
+
+    68% {
+      transform: rotate(#{$angle}) translate3d(#{$xAxis}, -10px, 0);
+    }
+
+    76% {
+      transform: rotate(#{$angle}) translate3d(#{$xAxis}, -25px, 0);
+    }
+
+    84% {
+      transform: rotate(#{$angle}) translate3d(#{$xAxis}, -40px, 0);
+    }
+
+    92% {
+      transform: rotate(#{$angle}) translate3d(#{$xAxis}, -55px, 0);
+    }
+
+    100% {
+      transform: rotate(#{$angle}) translate3d(#{$xAxis}, #{$yAxis}, 0);
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  .main {
+    width: 140px;
+    height: 192px;
+    --x-axis-0: -16px;
+    --x-axis-4: 16px;
+    --y-axis-0: -42px;
+    --y-axis-4: -42px;
+
+    p {
+      font-size: 63px;
+      line-height: 70px;
+      margin-left: -5px;
+    }
+
+    svg:first-of-type {
+      width: 30px;
+      height: 30px;
+    }
+
+    svg:last-child {
+      width: 70px;
+      height: 70px;
+    }
+  }
+}
+
+@media (min-width: 1400px) {
+  .main {
+    width: 190px;
+    height: 260px;
+    padding: 18px 24px;
+    --x-axis-0: -32px;
+    --y-axis-0: -56px;
+    --x-axis-1: -12px;
+    --y-axis-1: -16px;
+    --x-axis-3: 12px;
+    --y-axis-3: -16px;
+    --x-axis-4: 32px;
+    --y-axis-4: -56px;
+
+    p {
+      font-size: 85px;
+      line-height: 100px;
+      margin-left: -5px;
+    }
+
+    svg:first-of-type {
+      width: 35px;
+      height: 35px;
+    }
+
+    svg:last-child {
+      width: 90px;
+      height: 90px;
+      bottom: 24px;
+      right: 24px;
+    }
+  }
+}
+
+$card-names: (
+  0: animCardZero,
+  1: animCardOne,
+  2: animCardTwo,
+  3: animCardThree,
+  4: animCardFour,
+);
+
+@for $i from 0 through 4 {
+  @include keyframes(
+    map.get($card-names, $i),
+    var(--angle-#{$i}),
+    var(--x-axis-#{$i}),
+    var(--y-axis-#{$i})
+  );
+} ;

@@ -1,0 +1,85 @@
+.main {
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  font-family: 'Courier Prime', monospace;
+}
+
+.winBanner {
+  position: absolute;
+  width: 400px;
+  height: 62px;
+  left: 50%;
+  margin-left: -200px;
+  bottom: -7%;
+}
+
+.cards {
+  flex-basis: 322px;
+
+  img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.buttons {
+  font-family: 'Alfa Slab One', cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .dealButton {
+    width: 309px;
+    height: 103px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 14px;
+    background: #efce4b;
+    color: black;
+    font-size: 64px;
+    text-transform: uppercase;
+    margin: 25px;
+  }
+
+  .resetButton,
+  .playAgainButton {
+    width: 131px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 14px;
+    border: 3px solid #efce4b;
+    color: rgba(239, 206, 75, 1);
+    margin: 25px;
+    font-size: 24px;
+  }
+
+  .playAgainButton {
+    width: 200px;
+  }
+
+  .dealButton.isDisabled,
+  .resetButton.isDisabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+@media (min-width: 900px) {
+  .resetButton {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  .winBanner {
+    width: 768px;
+    height: 120px;
+    left: 50%;
+    margin-left: -384px;
+    bottom: 1%;
+  }
+}

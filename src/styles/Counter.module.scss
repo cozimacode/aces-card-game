@@ -1,0 +1,18 @@
+.counter {
+  width: 180px;
+  height: 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  border: 1px solid #fff48c;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+@media (min-width: 900px) {
+  .counter {
+    margin-bottom: 75px;
+  }
+}
